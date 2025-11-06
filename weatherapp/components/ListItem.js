@@ -1,45 +1,83 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { Feather } from '@expo/vector-icons'
 import { weatherType } from '../utilities/weatherType'
 
-const ListItem = (props) => {
-  const { dt_txt, min, max, condition } = props
-  const { item, date, temp, dateTextWrapper } = styles
+const ListItem = ({ dt_txt, min, max, condition }) => {
   return (
-    <View style={item}>
-      <Feather name={weatherType[condition]?.icon} size={50} color={'white'} />
-      <View style={dateTextWrapper}>
-        <Text style={date}>{moment(dt_txt).format('dddd')}</Text>
-        <Text style={date}>{moment(dt_txt).format('h:mm:ss a')}</Text>
+    <View style={styles.cardContainer}>
+      {/* ICON */}
+      <Feather
+        name={weatherType[condition]?.icon}
+        size={40}
+        color={'white'}
+        style={styles.icon}
+      />
+
+      {/* DATE + TIME */}
+      <View style={styles.textWrapper}>
+        <Text style={styles.dayText}>
+          {moment(dt_txt).format('dddd')}
+        </Text>
+
+        <Text style={styles.timeText}>
+          {moment(dt_txt).format('h:mm a')}
+        </Text>
       </View>
-      <Text style={temp}>{`${Math.round(min)}° / ${Math.round(max)}°`}</Text>
+
+      {/* TEMP */}
+      <Text style={styles.tempText}>
+        {`${Math.round(min)}° / ${Math.round(max)}°`}
+      </Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+  cardContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     alignItems: 'center',
-    borderWidth: 5,
-    backgroundColor: 'indianred'
+    padding: 18,
+    marginVertical: 8,
+    marginHorizontal: 12,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backdropFilter: 'blur(10px)', // works on web, safely ignored on RN
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.3)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
   },
-  temp: {
+
+  textWrapper: {
+    flex: 1,
+    marginLeft: 12,
+  },
+
+  dayText: {
+    fontSize: 18,
     color: 'white',
-    fontSize: 20
+    fontWeight: '700',
   },
-  date: {
+
+  timeText: {
+    fontSize: 14,
+    color: '#eaeaea',
+    marginTop: 2,
+  },
+
+  tempText: {
+    fontSize: 18,
     color: 'white',
-    fontSize: 15
+    fontWeight: '600',
   },
-  dateTextWrapper: {
-    flexDirection: 'column'
+
+  icon: {
+    marginRight: 10,
   }
 })
+
 export default ListItem
