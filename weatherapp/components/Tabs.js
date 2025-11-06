@@ -28,7 +28,7 @@ const Tabs = ({ weather }) => {
       }}
     >
       <Tab.Screen
-        name={'Current'}
+        name={'Current Weather'}
         options={{
           tabBarIcon: ({ focused }) => (
             <Feather
@@ -42,7 +42,7 @@ const Tabs = ({ weather }) => {
         {() => <CurrentWeather weatherData={weather.list[0]} />}
       </Tab.Screen>
       <Tab.Screen
-        name={'Upcoming'}
+        name={'Upcoming Weather'}
         options={{
           tabBarIcon: ({ focused }) => (
             <Feather
@@ -56,7 +56,7 @@ const Tabs = ({ weather }) => {
         {() => <UpcomingWeather weatherData={weather.list} />}
       </Tab.Screen>
       <Tab.Screen
-        name={'City'}
+        name={'Your City'}
         options={{
           tabBarIcon: ({ focused }) => (
             <Feather
